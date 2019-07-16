@@ -234,6 +234,12 @@ public class PowerUsageSummary extends PowerUsageBase implements OnLongClickList
         restartBatteryInfoLoader();
         mBatteryTipPreferenceController.restoreInstanceState(icicle);
         updateBatteryTipFlag(icicle);
+
+        // Check availability of Smart Charging
+        Preference mSmartCharging = (Preference) findPreference("smart_charging_key");
+        if (!getResources().getBoolean(com.android.internal.R.bool.config_smartChargingAvailable)) {
+            getPreferenceScreen().removePreference(mSmartCharging);
+        }
     }
 
     @Override
