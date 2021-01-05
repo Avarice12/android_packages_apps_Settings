@@ -283,7 +283,7 @@
         android:title="@string/vpn_settings_title" />
 
     <Preference
-        android:fragment="com.android.settings.deviceinfo.aboutphone.MyDeviceInfoFragment"
+        android:fragment="com.android.settings.deviceinfo.aboutphone.AboutJrFragment"
         android:icon="@drawable/ic_homepage_about"
         android:key="top_level_about_device"
         android:order="10"

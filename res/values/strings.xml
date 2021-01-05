@@ -12177,4 +12177,6 @@
 
     <!-- Summary for see all preference when bluetooth is disable [CHAR LIMIT=none]-->
     <string name="connected_device_see_all_summary">Bluetooth will turn on</string>
+    
+    <string name="more_info">More info</string>
 </resources>

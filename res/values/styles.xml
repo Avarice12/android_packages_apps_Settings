@@ -810,4 +810,17 @@
         <item name="cardPreventCornerOverlap">true</item>
         <item name="cardUseCompatPadding">false</item>
     </style>
+
+    <style name="CollapseText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="textAllCaps">true</item>
+    </style>
+    <style name="ExpandText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">34.0sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
 </resources>

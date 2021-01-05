@@ -29,5 +29,7 @@
     <dimen name="text_card_padding_end">10.0dip</dimen>
     
     <dimen name="ios_arrow_right_size">13.0dip</dimen>
+    <dimen name="img_height">180dp</dimen>
+    <dimen name="img_width">90dp</dimen>
     
 </resources>
