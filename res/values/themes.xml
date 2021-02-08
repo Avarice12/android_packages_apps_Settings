@@ -262,7 +262,7 @@
     </style>
     
     <!-- Ios Themes (google and wellbeing included) -->
-    <style name="Theme.Settings.HomeBase.Ios" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Settings.HomeBase.Ios" parent="Theme.Settings.NoActionBar">
         <item name="colorPrimary">@*android:color/primary_device_default_settings_light</item>
         <item name="colorAccent">@*android:color/accent_device_default_light</item>
         <item name="preferenceTheme">@style/PreferenceTheme.Ios</item>
@@ -281,5 +281,4 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/white</item>
     </style>
-    
 </resources>

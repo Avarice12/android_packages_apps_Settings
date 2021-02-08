@@ -30,7 +30,9 @@ import android.os.UserManager;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Toolbar;
+
+import com.android.internal.util.UserIcons;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
@@ -38,10 +40,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.android.internal.util.UserIcons;
 import com.android.settings.R;
+import com.android.settings.accounts.AvatarViewMixin;
+import com.android.settings.core.HideNonSystemOverlayMixin;
 import com.android.settings.homepage.contextualcards.ContextualCardsFragment;
 import com.android.settings.overlay.FeatureFactory;
+
 import com.android.settingslib.drawable.CircleFramedDrawable;
 
 public class SettingsHomepageActivity extends FragmentActivity {
@@ -55,6 +59,7 @@ public class SettingsHomepageActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         Context context = getApplicationContext();
+
         mUserManager = context.getSystemService(UserManager.class);
 
         setContentView(R.layout.settings_homepage_container);
@@ -62,14 +67,11 @@ public class SettingsHomepageActivity extends FragmentActivity {
         root.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
-        final LinearLayout sbar = findViewById(R.id.search_action_bar);
-        sbar.setClickable(true);
-        sbar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(FeatureFactory.getFactory(context).getSearchFeatureProvider()
-                        .buildSearchIntent(context /* activity */, SettingsEnums.SETTINGS_HOMEPAGE));
-            }
-        });
+        setHomepageContainerPaddingTop();
+
+        final Toolbar toolbar = findViewById(R.id.search_action_bar);
+        FeatureFactory.getFactory(this).getSearchFeatureProvider()
+                .initSearchToolbar(this /* activity */, toolbar, SettingsEnums.SETTINGS_HOMEPAGE);
 
         avatarView = root.findViewById(R.id.account_avatar);
         //final AvatarViewMixin avatarViewMixin = new AvatarViewMixin(this, avatarView);
@@ -78,7 +80,7 @@ public class SettingsHomepageActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$UserSettingsActivity"));
+                intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$UserSettingsActivity"));
                 startActivity(intent);
             }
         });
@@ -109,6 +111,14 @@ public class SettingsHomepageActivity extends FragmentActivity {
     @VisibleForTesting
     void setHomepageContainerPaddingTop() {
         final View view = this.findViewById(R.id.homepage_container);
+
+        final int searchBarHeight = getResources().getDimensionPixelSize(R.dimen.search_bar_height);
+        final int searchBarMargin = getResources().getDimensionPixelSize(R.dimen.search_bar_margin);
+        final int titleHeight = getResources().getDimensionPixelSize(R.dimen.title_height);
+
+        // The top padding is the height of action bar(48dp) + top/bottom margins(16dp)
+        final int paddingTop = searchBarHeight + titleHeight + searchBarMargin + searchBarMargin * 2;
+        view.setPadding(0 /* left */, paddingTop, 0 /* right */, 0 /* bottom */);
 
         // Prevent inner RecyclerView gets focus and invokes scrolling.
         view.setFocusableInTouchMode(true);
